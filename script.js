@@ -1,60 +1,42 @@
-let humanScore=0,computerScore = 0;
-let getHumanChoice=()=>{
-   let humanchoice = prompt("whats your choice?");
-   humanchoice=humanchoice.toLowerCase();
-   switch(humanchoice) {
-    case "rock":
-      humanchoice=0;
-      break;
-    case "paper":
-      humanchoice=1;
-      break;
-    case "scissors":
-      humanchoice=2;
-      break;
-  }
-   return humanchoice;
+let humanScore=0,computerScore=0;
+let getHumanChoice =()=>{
+    let choice =prompt("Enter your choice: Rock, Paper, Scissors");
+    choice=choice.toLowerCase();
+    if(choice=="rock" |choice=="paper"|choice=="scissors"){
+        return choice;
+    }
+    else{
+        console.log("Enter Correct spelling");
+        return getHumanChoice();
+    }
 }
-let getRandomInt =max=> Math.floor(Math.random() * max);
-let getComputerChoice=()=> getRandomInt(3);
-
-let playRound=(humanSelection,computerSelection)=>{
-    if(humanSelection==computerSelection)
-        console.log("tie");
-    else if(humanSelection==0 && computerSelection==1){
-        console.log("Computer throws Paper;")
-        console.log("Computer wins!");
-        computerScore++;
-    }
-    else if(humanSelection==0 && computerSelection==2){
-        console.log("Computer throws Scissors");
-        console.log("Player wins!");
-        humanScore++;
-    }
-    else if(humanSelection==1 && computerSelection==0){
-        console.log("Computer throws Rock");
-        console.log("Player wins!");
-        humanScore++;
-    }
-    else if(humanSelection==1 && computerSelection==2){
-        console.log("Computer throws Scissors");
-        console.log("Computer wins!");
-        computerScore++;
-    }
-    else if(humanSelection==2 && computerSelection==0){
-        console.log("Computer throws Rock");
-        console.log("Computer wins!");
-        computerScore++;
-    }
-    else if(humanSelection==2 && computerSelection==1){
-        console.log("Computer throws Paper");
-        console.log("Player wins!");
-        humanScore++;
-    }      
+let getComputerChoice = ()=>{
+    let choices=["rock","paper","scissors"];
+    let rand =Math.floor(Math.random()*3);
+    return choices[rand];
 }
-let playgame=()=>{
-    let humanSelection=getHumanChoice();
+let showWin=(userWin)=>{
+    if(userWin){
+        console.log("You win!");
+        humanScore++;
+    }
+    else{
+        console.log("You lose!");
+        computerScore++;
+    }
+}
+let playGame= () =>{
+    let humanSelection = getHumanChoice();
     let computerSelection=getComputerChoice();
-    playRound(humanSelection,computerSelection);
+    console.log("User selected : ", humanSelection);
+    console.log("Computer selected : ", computerSelection);
+    if(humanSelection===computerSelection) console.log("Tie")
+        else {
+        let userWin=null;
+        if(humanSelection==="rock")userWin= computerSelection==="scissors"? true:false;
+        else if(humanSelection==="paper")userWin=computerSelection==="rock"?true:false;
+        else if(humanSelection==="scissors")userWin=computerSelection==="paper"?true:false;
+        showWin(userWin);
+    }
 }
-playgame();
+playGame();
