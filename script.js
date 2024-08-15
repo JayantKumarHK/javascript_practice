@@ -17,15 +17,15 @@ let getComputerChoice = ()=>{
 }
 let showWin=(userWin)=>{
     if(userWin){
-        console.log("You win!");
+        console.log("player wins round!");
         humanScore++;
     }
     else{
-        console.log("You lose!");
+        console.log("Computer wins round!");
         computerScore++;
     }
 }
-let playGame= () =>{
+let playRound= () =>{
     let humanSelection = getHumanChoice();
     let computerSelection=getComputerChoice();
     console.log("User selected : ", humanSelection);
@@ -39,4 +39,32 @@ let playGame= () =>{
         showWin(userWin);
     }
 }
-playGame();
+let round=1;
+let gameWin=()=>{
+    if(humanScore>=2 && humanScore>computerScore){
+        console.log('Congratulations Player has won the game');
+    }
+    else if(computerScore=>2 && computerScore>humanScore){
+        console.log('Computer has won the game');
+    }
+    else if(humanScore===computerScore){
+        console.log("Tie");
+    }
+}
+let playgame=()=>{
+    console.log("Round",round);
+    playRound();
+    console.log("User Score : ", humanScore);
+    console.log("Computer Score : ", computerScore);
+    round++;
+    if(round<=5){
+        playgame();
+    }
+    else{
+        gameWin();
+    }
+    
+}
+window.onload = () => {
+    playgame();
+}
